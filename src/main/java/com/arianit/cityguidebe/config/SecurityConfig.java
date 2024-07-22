@@ -51,17 +51,14 @@ public class SecurityConfig {
         return new String[] {
                 "api/v1/auth/login",
                 "api/v1/users",
-                "/gastronomes/**",
                 "api/v1/auth/refresh",
                 "/v3/api-docs/**",
                 "/v3/api-docs.yaml",
                 "/swagger-ui.html",
                 "/swagger-ui/**",
-                "/gastronomes/**",
-                "/cities/**",
-                "/trips/**",
+                "/gastronomes/get/**",
+                "/cities/get/**",
                 "/trips/generate",
-                "/reservations/**",
                 "/states/**"
 
         };

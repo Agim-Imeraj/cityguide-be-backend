@@ -31,7 +31,7 @@ public class CityController {
         return new ResponseEntity<>(cityService.create(cityRequest), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("get//{id}")
     public ResponseEntity<CityDto> getById(@PathVariable Long id){
          CityDto cityDto = cityService.getById(id);
         return new ResponseEntity<>(cityDto, HttpStatus.OK);
@@ -42,7 +42,7 @@ public class CityController {
         return cityService.getAllPagable(pageRequest);
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity<List<CityDto>> getAll(){
         return new ResponseEntity<>(cityService.getAll(), HttpStatus.OK);
     }

@@ -48,7 +48,7 @@ public class GastronomeController {
         return gastronomeService.getGastronomesByCityIdAndTypes(cityId, types);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<GastronomeDto> getGastronomeById(@PathVariable Long id) {
         GastronomeDto gastronomeDto = gastronomeService.getById(id);
         return ResponseEntity.ok(gastronomeDto);
@@ -59,13 +59,13 @@ public class GastronomeController {
         return gastronomeService.getAllPagable(pageRequest);
     }
 
-    @GetMapping("getAll")
+    @GetMapping("/get")
     public ResponseEntity<List<GastronomeDto>> getAll() {
         List<GastronomeDto> gastronomeDtos = gastronomeService.getAll();
         return ResponseEntity.ok(gastronomeDtos);
     }
 
-    @GetMapping("/theMostVisited")
+    @GetMapping("/get/theMostVisited")
     public ResponseEntity<List<GastronomeDto>> getTheMostVisited() {
         List<GastronomeDto> gastronomeDtos = gastronomeService.getTheMostVisitedGastronomes();
         return ResponseEntity.ok(gastronomeDtos);
@@ -77,7 +77,7 @@ public class GastronomeController {
     }
 
 
-    @GetMapping("/byCityId/{cityId}")
+    @GetMapping("get//byCityId/{cityId}")
     public ResponseEntity<List<GastronomeDto>> getGastronomesByCityId(@PathVariable long cityId) {
         List<GastronomeDto> gastronomes = gastronomeService.getGastronomesByCityId(cityId);
         return new ResponseEntity<>(gastronomes, HttpStatus.OK);
