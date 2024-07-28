@@ -1,10 +1,7 @@
 package com.arianit.cityguidebe.service;
 
 import com.arianit.cityguidebe.dao.FavoriteRepository;
-import com.arianit.cityguidebe.dto.CurrentLoggedInUserDto;
-import com.arianit.cityguidebe.dto.FavoriteDto;
-import com.arianit.cityguidebe.dto.GastronomeDto;
-import com.arianit.cityguidebe.dto.UserDto;
+import com.arianit.cityguidebe.dto.*;
 import com.arianit.cityguidebe.dto.request.FavoriteRequest;
 import com.arianit.cityguidebe.entity.Favorite;
 import com.arianit.cityguidebe.entity.User;
@@ -25,6 +22,7 @@ public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
     private final FavoriteMapper mapper;
     private final GastronomeService gastronomeService;
+    private final CityService cityService;
     private final GastronomeMapper gastronomeMapper;
 
 
@@ -43,6 +41,7 @@ public class FavoriteService {
         favorite.setNameOfUser(loggedUser.getUsername());
         favorite.setUserId(loggedUser.getId());
         mapGastronomeToFavorite(request,favorite);
+        mapCityToFavorite(request,favorite);
         // TODO check if in databae then save
         return mapper.toDto(favoriteRepository.save(favorite));
     }
@@ -81,6 +80,11 @@ public class FavoriteService {
     private void mapGastronomeToFavorite(FavoriteRequest request, Favorite favorite){
         GastronomeDto gastronomeDto = gastronomeService.getById(request.gastronomeId());
         favorite.setGastronomeId(gastronomeDto.getId());
+    }
+
+    private void mapCityToFavorite(FavoriteRequest request, Favorite favorite){
+        CityDto cityDto = cityService.getById(request.cityId());
+        favorite.setCityId(cityDto.getId());
     }
 
     public List<Long> findGastronomeIdByNameOfUser(String username) {

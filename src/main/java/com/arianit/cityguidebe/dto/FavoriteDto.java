@@ -15,4 +15,5 @@ public class FavoriteDto {
     private Long id;
     private String nameOfUser;
     private List<Long> gastronomeDtoList;
+    private Long cityId;
 }
