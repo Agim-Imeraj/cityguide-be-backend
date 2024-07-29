@@ -46,6 +46,9 @@ public class User extends BaseEntity implements UserDetails {
 
     private String password;
 
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -80,6 +81,13 @@ public class UserService {
             ReflectionUtil.setFieldValue(userInDb, key, value);
         });
         return mapper.toDto(userRepository.save(userInDb));
+    }
+
+
+    @Transactional
+    public void deleteUser(Long userId) {
+        LocalDateTime now = LocalDateTime.now();
+        userRepository.markAsDeleted(userId, now);
     }
 
     private void setUserPasswordAndRole(UserRequest request, User user) {

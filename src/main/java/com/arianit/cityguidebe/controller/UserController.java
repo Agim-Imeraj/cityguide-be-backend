@@ -42,6 +42,12 @@ public class UserController {
         return ResponseEntity.ok(userService.update(id,fields));
     }
 
+    @PutMapping("/{id}/delete")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("User marked as deleted");
+    }
+
     @GetMapping("/favorites")
     public List<GastronomeDto> getUserFavoriteGastronomies() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
