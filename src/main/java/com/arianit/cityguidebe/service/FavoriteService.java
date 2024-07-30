@@ -22,8 +22,7 @@ public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
     private final FavoriteMapper mapper;
     private final GastronomeService gastronomeService;
-    private final CityService cityService;
-    private final GastronomeMapper gastronomeMapper;
+
 
 
     public List<GastronomeDto> getUserFavoriteGastronomies(String username) {
@@ -41,8 +40,6 @@ public class FavoriteService {
         favorite.setNameOfUser(loggedUser.getUsername());
         favorite.setUserId(loggedUser.getId());
         mapGastronomeToFavorite(request,favorite);
-        mapCityToFavorite(request,favorite);
-        // TODO check if in databae then save
         return mapper.toDto(favoriteRepository.save(favorite));
     }
 
@@ -80,11 +77,6 @@ public class FavoriteService {
     private void mapGastronomeToFavorite(FavoriteRequest request, Favorite favorite){
         GastronomeDto gastronomeDto = gastronomeService.getById(request.gastronomeId());
         favorite.setGastronomeId(gastronomeDto.getId());
-    }
-
-    private void mapCityToFavorite(FavoriteRequest request, Favorite favorite){
-        CityDto cityDto = cityService.getById(request.cityId());
-        favorite.setCityId(cityDto.getId());
     }
 
     public List<Long> findGastronomeIdByNameOfUser(String username) {
