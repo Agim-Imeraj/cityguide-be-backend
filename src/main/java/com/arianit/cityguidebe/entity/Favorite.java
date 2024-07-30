@@ -29,12 +29,4 @@ public class Favorite extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id",insertable = false, updatable = false)
     private User user;
-
-    @Column(name = "city_id")
-    private Long cityId;
-
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "city_id", insertable = false, updatable = false)
-    private City city;
 }
