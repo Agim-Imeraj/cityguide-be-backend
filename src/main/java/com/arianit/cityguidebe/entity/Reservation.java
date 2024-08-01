@@ -32,4 +32,11 @@ public class Reservation extends BaseEntity {
 
     private String status;
 
+    @Column(name = "user_id")
+    private Long userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
+
 }

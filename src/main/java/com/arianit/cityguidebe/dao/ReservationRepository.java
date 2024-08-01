@@ -1,10 +1,24 @@
 package com.arianit.cityguidebe.dao;
 
+import com.arianit.cityguidebe.dto.ReservationDto;
+import com.arianit.cityguidebe.dto.UserDto;
 import com.arianit.cityguidebe.entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-    List<Reservation> findByGastronomeId(Long gastronomeId);
+
+
+    @Query("SELECT new com.arianit.cityguidebe.dto.ReservationDto(r.id, r.gastronomeId, r.reservationDate, " +
+            "r.numberOfPeople, r.specialRequests, r.phoneNumber, r.status, r.createdAt, " +
+            "r.updatedAt, g.nameOfGastronome) " +
+            "FROM Reservation r " +
+            "JOIN r.gastronome g " +
+            "JOIN User u ON r.userId = u.id " +
+            "WHERE u.id = :userId")
+    List<ReservationDto> findByUserId(@Param("userId") Long userId);
+
 }

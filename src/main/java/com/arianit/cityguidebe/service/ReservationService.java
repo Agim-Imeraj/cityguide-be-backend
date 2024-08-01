@@ -5,18 +5,22 @@ import com.arianit.cityguidebe.dao.ReservationRepository;
 import com.arianit.cityguidebe.dto.CityDto;
 import com.arianit.cityguidebe.dto.GastronomeDto;
 import com.arianit.cityguidebe.dto.ReservationDto;
+import com.arianit.cityguidebe.dto.UserDto;
 import com.arianit.cityguidebe.dto.request.GastronomeRequest;
 import com.arianit.cityguidebe.dto.request.PageRequest;
 import com.arianit.cityguidebe.dto.request.ReservationRequest;
 import com.arianit.cityguidebe.dto.request.UpdateReservationRequest;
 import com.arianit.cityguidebe.entity.Gastronome;
 import com.arianit.cityguidebe.entity.Reservation;
+import com.arianit.cityguidebe.entity.User;
 import com.arianit.cityguidebe.exception.MismatchedInputException;
 import com.arianit.cityguidebe.exception.ResourceNotFoundException;
 import com.arianit.cityguidebe.mapper.ReservationMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +39,10 @@ public class ReservationService {
                 .orElseThrow(()-> new ResourceNotFoundException(
                         String.format("Gastronome with %s id not found",reservationRequest.gastronomeId())
                 ));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User loggedUser = (User) authentication.getPrincipal();
         Reservation reservation = reservationMapper.toEntity(reservationRequest);
+        reservation.setUserId(loggedUser.getId());
         mapReservationToGastronome(reservationRequest,reservation);
         Reservation reservationInDb = reservationRepository.save(reservation);
         return reservationMapper.toDto(reservationInDb);
@@ -61,11 +68,12 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
-    public List<ReservationDto> getByGastronomeId(Long id){
-        List<Reservation> reservations = reservationRepository.findByGastronomeId(id);
-        return reservations.stream()
-                .map(reservationMapper::toDto)
-                .collect(Collectors.toList());
+
+
+    public List<ReservationDto> getByUserId(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User loggedUser = (User) authentication.getPrincipal();
+        return reservationRepository.findByUserId(loggedUser.getId());
     }
 
     public ReservationDto update (Long id, UpdateReservationRequest request){
