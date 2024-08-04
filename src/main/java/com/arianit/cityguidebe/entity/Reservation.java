@@ -32,6 +32,9 @@ public class Reservation extends BaseEntity {
 
     private String status;
 
+    @Column(name = "full_name")
+    private String fullName;
+
     @Column(name = "user_id")
     private Long userId;
 

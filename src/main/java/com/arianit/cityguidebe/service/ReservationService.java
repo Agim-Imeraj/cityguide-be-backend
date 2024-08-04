@@ -68,13 +68,18 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
-
-
     public List<ReservationDto> getByUserId(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User loggedUser = (User) authentication.getPrincipal();
         return reservationRepository.findByUserId(loggedUser.getId());
     }
+
+    public List<ReservationDto> getReservationByGastronomeId(Long gastronomeId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User loggedUser = (User) authentication.getPrincipal();
+        return reservationRepository.findReservationsByGastronomeId(gastronomeId);
+    }
+
 
     public ReservationDto update (Long id, UpdateReservationRequest request){
         if (!(id.equals(request.id()))){

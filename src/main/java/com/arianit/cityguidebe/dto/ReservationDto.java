@@ -20,14 +20,12 @@ public class ReservationDto extends BaseDto{
     private String status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String firstName;
-    private String lastName;
-    String nameOfGastronome;
+    private String nameOfGastronome;
+    private String fullName;
 
-    public ReservationDto(Long id, Long gastronomeId, String reservationDate,
+    public ReservationDto(Long id, Long gastronomeId, String nameOfGastronome, String reservationDate,
                           Integer numberOfPeople, String specialRequests,
-                          String phoneNumber, String status, LocalDateTime createdAt,
-                          LocalDateTime updatedAt, String firstName, String lastName) {
+                          String phoneNumber, String status, String fullName) {
         super(id);
         this.gastronomeId = gastronomeId;
         this.reservationDate = reservationDate;
@@ -35,11 +33,7 @@ public class ReservationDto extends BaseDto{
         this.specialRequests = specialRequests;
         this.phoneNumber = phoneNumber;
         this.status = status;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.firstName = firstName;
-        this.lastName = lastName;
-
+        this.fullName = fullName;
     }
 
     public ReservationDto(Long id, Long gastronomeId, String reservationDate,

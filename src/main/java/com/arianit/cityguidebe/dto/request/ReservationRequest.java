@@ -8,6 +8,7 @@ public record ReservationRequest(
         Integer numberOfPeople,
         String specialRequests,
         String phoneNumber,
-        String status
+        String status,
+        String fullName
 ) {
 }

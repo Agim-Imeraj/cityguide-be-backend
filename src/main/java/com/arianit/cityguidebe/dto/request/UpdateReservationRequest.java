@@ -10,6 +10,7 @@ public record UpdateReservationRequest(
         Integer numberOfPeople,
         String specialRequests,
         String phoneNumber,
-        String status
+        String status,
+        String fullName
 ) {
 }
