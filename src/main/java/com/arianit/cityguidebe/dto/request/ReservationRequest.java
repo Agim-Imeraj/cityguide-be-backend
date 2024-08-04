@@ -9,6 +9,7 @@ public record ReservationRequest(
         String specialRequests,
         String phoneNumber,
         String status,
+        @NotBlank
         String fullName
 ) {
 }
