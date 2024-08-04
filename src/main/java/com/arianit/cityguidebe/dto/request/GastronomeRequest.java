@@ -18,6 +18,8 @@ public record GastronomeRequest(
         Integer rating,
         String description,
         Double price,
-        String phoneNumber
+        String phoneNumber,
+        String website,
+        String address
 ) {
 }

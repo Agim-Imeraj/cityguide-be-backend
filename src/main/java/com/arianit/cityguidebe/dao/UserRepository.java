@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("SELECT u FROM User u WHERE u.username = :username")
+    @Query("SELECT u FROM User u WHERE u.username = :username AND u.deletedAt IS NULL")
     Optional<User> findByUsername(String username);
 
     @Query("SELECT u FROM User u WHERE u.id = :id AND u.deletedAt IS NULL")

@@ -1,5 +1,6 @@
 package com.arianit.cityguidebe.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReservationDto extends BaseDto{
     private Long gastronomeId;
     private String reservationDate;
@@ -42,8 +44,7 @@ public class ReservationDto extends BaseDto{
 
     public ReservationDto(Long id, Long gastronomeId, String reservationDate,
                           Integer numberOfPeople, String specialRequests,
-                          String phoneNumber, String status, LocalDateTime createdAt,
-                          LocalDateTime updatedAt, String nameOfGastronome) {
+                          String phoneNumber, String status, String nameOfGastronome) {
         super(id);
         this.gastronomeId = gastronomeId;
         this.reservationDate = reservationDate;
@@ -51,8 +52,6 @@ public class ReservationDto extends BaseDto{
         this.specialRequests = specialRequests;
         this.phoneNumber = phoneNumber;
         this.status = status;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.nameOfGastronome = nameOfGastronome;
     }
 }

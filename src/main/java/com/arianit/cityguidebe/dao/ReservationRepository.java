@@ -13,12 +13,12 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
 
     @Query("SELECT new com.arianit.cityguidebe.dto.ReservationDto(r.id, r.gastronomeId, r.reservationDate, " +
-            "r.numberOfPeople, r.specialRequests, r.phoneNumber, r.status, r.createdAt, " +
-            "r.updatedAt, g.nameOfGastronome) " +
+            "r.numberOfPeople, r.specialRequests, r.phoneNumber, r.status, g.nameOfGastronome) " +
             "FROM Reservation r " +
-            "JOIN r.gastronome g " +
+            "JOIN r.gastronome g ON r.gastronomeId = g.id " +
             "JOIN User u ON r.userId = u.id " +
-            "WHERE u.id = :userId")
+            "WHERE u.id = :userId AND r.status <> 'Cancelled'")
     List<ReservationDto> findByUserId(@Param("userId") Long userId);
+
 
 }
