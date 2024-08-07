@@ -76,5 +76,11 @@ public class Gastronome extends BaseEntity{
     @Column(name = "attachment")
     private List<String> attachments;
 
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "website")
+    private String website;
+
 
 }
